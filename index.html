@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الجداول الدراسية الأسبوعية - ابتدائية العمرية الأهلية</title>
+  <!-- Google Fonts & Lucide Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --primary-blue: #1c529e;
+      --teal: #088b9c;
+      --light-teal: #0fa4b8;
+      --leaf-green: #68b82e;
+      --leaf-orange: #f59e1b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-md: 0 6px 16px rgba(15, 76, 129, 0.08);
+      --shadow-lg: 0 12px 28px -4px rgba(15, 76, 129, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Tajawal', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at top right, #e8f9f8 0%, #f4f8fc 30%, #f8fafc 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 1.25rem;
+    }
+
+    /* البانر العلوي المتكامل */
+    .header-banner {
+      max-width: 1200px;
+      margin: 0 auto 1.5rem;
+      width: 100%;
+      background: linear-gradient(115deg, #103b7b 0%, #1c57a5 25%, #088b9c 70%, #0ca798 100%);
+      border-radius: 2.2rem;
+      padding: 2.5rem 3rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 14px 30px rgba(16, 59, 123, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+    }
+
+    /* الزخرفة التجريدية على اليسار */
+    .banner-graphic {
+      position: absolute;
+      left: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 380px;
+      height: 380px;
+      pointer-events: none;
+      opacity: 0.95;
+      background-image: 
+        radial-gradient(ellipse at 40% 50%, #68b82e 0%, #529622 40%, transparent 41%),
+        radial-gradient(ellipse at 70% 30%, #f59e1b 0%, #d97706 40%, transparent 41%),
+        radial-gradient(ellipse at 65% 70%, #02999f 0%, #0e7490 40%, transparent 41%),
+        radial-gradient(circle at 85% 50%, #e2e8f0 0%, #cbd5e1 25%, transparent 26%);
+      background-size: 160px 220px, 150px 200px, 150px 200px, 70px 70px;
+      background-repeat: no-repeat;
+      background-position: 20px 80px, 120px 20px, 120px 160px, 260px 150px;
+      filter: drop-shadow(0 4px 15px rgba(0,0,0,0.15));
+    }
+
+    /* هوية وشعار المدرسة على اليمين */
+    .banner-right {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      z-index: 2;
+      flex-shrink: 0;
+      min-width: 200px;
+    }
+
+    .banner-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+      margin-bottom: 0.5rem;
+    }
+
+    .school-title {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .school-sub {
+      font-size: 0.75rem;
+      letter-spacing: 0.8px;
+      color: #bae6fd;
+      margin-top: 0.2rem;
+      font-weight: 600;
+    }
+
+    /* المحتوى النصي وسط البانر */
+    .banner-center {
+      flex: 1;
+      text-align: center;
+      z-index: 2;
+      padding: 0 1.5rem;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .year-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(8px);
+      padding: 0.35rem 1.6rem;
+      border-radius: 9999px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      margin-bottom: 0.75rem;
+    }
+
+    .banner-center h1 {
+      font-size: 2.3rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .banner-center p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .decorative-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .dot-1 { background-color: var(--leaf-green); }
+    .dot-2 { background-color: var(--leaf-orange); }
+    .dot-3 { background-color: var(--light-teal); }
+
+    /* الحاوية الرئيسية */
+    main {
+      max-width: 1200px;
+      margin: 0 auto 2.5rem;
+      width: 100%;
+    }
+
+    /* شريط التبويبات */
+    .grade-tabs {
+      display: flex;
+      gap: 0.6rem;
+      overflow-x: auto;
+      padding: 0.6rem;
+      background: var(--card-bg);
+      border-radius: 1.25rem;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 1.75rem;
+      border: 1px solid var(--border);
+      scrollbar-width: none;
+    }
+
+    .grade-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-btn {
+      flex: 1;
+      min-width: 130px;
+      padding: 0.85rem 1rem;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 0.85rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      background: #f1f5f9;
+      color: var(--primary-blue);
+    }
+
+    .tab-btn.active {
+      background: var(--primary-blue);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(28, 82, 158, 0.3);
+    }
+
+    /* شبكة الجداول والشعب */
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .class-card {
+      background: var(--card-bg);
+      border-radius: 1.25rem;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .class-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--teal);
+    }
+
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      background: #ffffff;
+      cursor: pointer;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+    }
+
+    .image-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.35s ease;
+    }
+
+    .class-card:hover .image-container img {
+      transform: scale(1.02);
+    }
+
+    .zoom-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(16, 59, 123, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+      color: white;
+      gap: 0.5rem;
+      font-weight: 700;
+      backdrop-filter: blur(2px);
+    }
+
+    .image-container:hover .zoom-overlay {
+      opacity: 1;
+    }
+
+    .card-content {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .class-info h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--primary-blue);
+      margin-bottom: 0.2rem;
+    }
+
+    .class-info span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .btn-view {
+      background: #edf5ff;
+      color: var(--primary-blue);
+      border: 1px solid #bfdbfe;
+      padding: 0.6rem 1.2rem;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .btn-view:hover {
+      background: var(--primary-blue);
+      color: white;
+      border-color: var(--primary-blue);
+    }
+
+    /* Modal نافذة العرض */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border-radius: 1.5rem;
+      max-width: 950px;
+      width: 100%;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary-blue);
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-action {
+      background: #f1f5f9;
+      border: none;
+      color: var(--text-main);
+      cursor: pointer;
+      padding: 0.5rem 0.85rem;
+      border-radius: 0.6rem;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    .btn-action:hover {
+      background: var(--primary-blue);
+      color: white;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8fafc;
+    }
+
+    .modal-body img {
+      max-width: 100%;
+      height: auto;
+      max-height: 72vh;
+      object-fit: contain;
+      background: #ffffff;
+      border-radius: 0.5rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 900px) {
+      .header-banner {
+        flex-direction: column;
+        padding: 2rem 1.25rem;
+        gap: 1.5rem;
+      }
+      .banner-graphic {
+        display: none;
+      }
+      .banner-center h1 {
+        font-size: 1.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- البانر العلوي المتكامل -->
+  <header class="header-banner">
+    <!-- الشعار والهوية على اليمين بدون تشكيل -->
+    <div class="banner-right">
+      <img src="logo.png" alt="شعار مدارس العمرية" class="banner-logo" onerror="this.src='https://placehold.co/100x100/ffffff/1c529e?text=Logo'">
+      <div class="school-title">مدارس العمرية الأهلية</div>
+      <div class="school-sub">OMARIAH NATIONAL SCHOOLS</div>
+    </div>
+
+    <!-- النصوص الرئيسية في الوسط -->
+    <div class="banner-center">
+      <div class="year-badge">العام الدراسي 1448 / 1449 هـ</div>
+      <h1>الجداول الدراسية الأسبوعية</h1>
+      <p>مرحباً بأولياء الأمور الكرام، يمكنكم استعراض وتحميل الجدول المدرسي الخاص بفصل أبنائكم بكل سهولة.</p>
+      
+      <div class="decorative-dots">
+        <span class="dot dot-1"></span>
+        <span class="dot dot-2"></span>
+        <span class="dot dot-3"></span>
+      </div>
+    </div>
+
+    <!-- الزخرفة الملونة على اليسار -->
+    <div class="banner-graphic"></div>
+  </header>
+
+  <main>
+    <!-- شريط الصفوف -->
+    <div class="grade-tabs" id="gradeTabs"></div>
+
+    <!-- شبكة الفصول والشعب -->
+    <div class="classes-grid" id="classesGrid"></div>
+  </main>
+
+  <!-- Modal العرض المكبر -->
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title" id="modalTitle">اسم الفصل</div>
+        <div class="modal-actions">
+          <a id="modalDownload" href="#" download class="btn-action" title="تحميل الجدول">
+            <i data-lucide="download" style="width: 16px; height: 16px;"></i>
+            <span>تحميل</span>
+          </a>
+          <button class="btn-action" id="modalClose" title="إغلاق">
+            <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <img id="modalImg" src="" alt="جدول الفصل">
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>جميع الحقوق محفوظة &copy; 2026 - ابتدائية العمرية الأهلية</p>
+  </footer>
+
+  <script>
+    const grades = [
+      { id: 1, name: "الصف الأول الابتدائي", sections: ["أ", "ب", "ج"], startIdx: 1 },
+      { id: 2, name: "الصف الثاني الابتدائي", sections: ["أ", "ب", "ج"], startIdx: 4 },
+      { id: 3, name: "الصف الثالث الابتدائي", sections: ["أ", "ب", "ج"], startIdx: 7 },
+      { id: 4, name: "الصف الرابع الابتدائي", sections: ["أ", "ب", "ج"], startIdx: 10 },
+      { id: 5, name: "الصف الخامس الابتدائي", sections: ["أ", "ب", "ج"], startIdx: 13 },
+      { id: 6, name: "الصف السادس الابتدائي", sections: ["أ", "ب", "ج"], startIdx: 16 }
+    ];
+
+    let currentGradeId = 1;
+    const getImagePath = (num) => `images/${num}.jpg`;
+
+    // بناء الأزرار والتبويبات
+    const gradeTabsContainer = document.getElementById('gradeTabs');
+    grades.forEach(grade => {
+      const btn = document.createElement('button');
+      btn.className = `tab-btn ${grade.id === currentGradeId ? 'active' : ''}`;
+      btn.textContent = grade.name;
+      btn.onclick = () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentGradeId = grade.id;
+        renderClasses(grade.id);
+      };
+      gradeTabsContainer.appendChild(btn);
+    });
+
+    // بناء بطاقات الفصول
+    function renderClasses(gradeId) {
+      const grade = grades.find(g => g.id === gradeId);
+      const grid = document.getElementById('classesGrid');
+      grid.innerHTML = '';
+
+      grade.sections.forEach((sec, index) => {
+        const imageIndex = grade.startIdx + index;
+        const imageSrc = getImagePath(imageIndex);
+        const className = `${grade.name} - شعبة (${sec})`;
+
+        const card = document.createElement('div');
+        card.className = 'class-card';
+        card.innerHTML = `
+          <div class="image-container" onclick="openModal('${imageSrc}', '${className}')">
+            <img src="${imageSrc}" alt="${className}" onerror="this.src='https://placehold.co/600x400/f8fafc/1c529e?text=جدول+${grade.name}+(${sec})'">
+            <div class="zoom-overlay">
+              <i data-lucide="maximize-2" style="width: 20px; height: 20px;"></i>
+              <span>عرض الجدول</span>
+            </div>
+          </div>
+          <div class="card-content">
+            <div class="class-info">
+              <h3>شعبة (${sec})</h3>
+              <span>${grade.name}</span>
+            </div>
+            <button class="btn-view" onclick="openModal('${imageSrc}', '${className}')">
+              <i data-lucide="eye" style="width: 16px; height: 16px;"></i>
+              عرض
+            </button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    // Modal Control
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDownload = document.getElementById('modalDownload');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(src, title) {
+      modalImg.src = src;
+      modalTitle.textContent = title;
+      modalDownload.href = src;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    modalClose.onclick = closeModal;
+    modal.onclick = (e) => {
+      if (e.target === modal) closeModal();
+    };
+
+    // تشغيل العرض للصف الأول افتراضياً
+    renderClasses(1);
+  </script>
+</body>
+</html>
